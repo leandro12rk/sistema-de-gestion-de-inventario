@@ -1,14 +1,37 @@
-# IntelliJ IDEA
+# --- IDEs (IntelliJ, VS Code, STS, NetBeans) ---
 .idea/
 *.iml
 *.iws
 *.ipr
 out/
+.vscode/
+.classpath
+.project
+.settings/
+.springBeans
+.sts4-cache
+.apt_generated
+.factorypath
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
 
-# Maven (Archivos de compilación que tampoco deben subirse)
+# --- Maven & Compilación ---
 target/
 **/target/
+build/
+**/build/
+.mvn/wrapper/maven-wrapper.jar
 
-# Logs y temporales
+# --- Archivos de Spring Initializr ---
+HELP.md
+mvnw
+mvnw.cmd
+.mvn/
+
+# --- Sistema y Logs ---
 *.log
 .DS_Store
+Thumbs.db
