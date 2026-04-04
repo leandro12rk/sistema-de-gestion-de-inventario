@@ -1,7 +1,7 @@
 package io.github.leandro12rk.product.controller.product;
 
 
-import io.github.leandro12rk.product.repository.ProductRepository;
+import io.github.leandro12rk.product.repository.product.ProductRepository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;

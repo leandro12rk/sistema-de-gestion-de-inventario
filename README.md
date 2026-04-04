@@ -5,7 +5,7 @@ Este proyecto es una arquitectura de microservicios diseñada para gestionar el 
 
 ## 🏗️ Arquitectura del Sistema
 
-![Diagrama de Arquitectura](./path-to-your-image/image_7bc949.png)
+![Diagrama de Arquitectura](./image/microservice-estructure.png)
 
 El sistema se compone de los siguientes módulos:
 
