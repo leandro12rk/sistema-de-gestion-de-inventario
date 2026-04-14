@@ -1,33 +1,46 @@
-DROP TABLE IF EXISTS inventory;
-DROP TABLE IF EXISTS goods_receipts;
 DROP TABLE IF EXISTS stock_movements;
+DROP TABLE IF EXISTS goods_receipts;
+DROP TABLE IF EXISTS inventory;
 
--- Estructura
+-- Tabla maestra de inventario (Stock actual)
 CREATE TABLE inventory
 (
     id           SERIAL PRIMARY KEY,
     product_id   INTEGER NOT NULL UNIQUE,
-    quantity     INTEGER NOT NULL DEFAULT 0,
+    quantity     INTEGER NOT NULL DEFAULT 0 CHECK (quantity >= 0),
     last_updated TIMESTAMP        DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Tabla de recepción de mercancía (Encabezado)
 CREATE TABLE goods_receipts
 (
     id                SERIAL PRIMARY KEY,
-    purchase_order_id INTEGER,
+    purchase_order_id INTEGER      NOT NULL,
     received_date     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    received_by       VARCHAR(100)
+    received_by       VARCHAR(100) NOT NULL
 );
 
--- Movimientos para auditoría
+/*
+El campo type (La lógica de movimiento)
+IN (Entrada): Representa mercancía que ingresa a tu bodega. Aumenta la cantidad total en tu tabla inventory.
+
+OUT (Salida): Representa mercancía que sale de tu bodega (ventas, despachos a sucursales, devoluciones a proveedores). Disminuye la cantidad total.
+
+ADJUSTMENT (Ajuste): Se usa para corregir discrepancias. Si el sistema dice que tienes 10, pero físicamente cuentas 9, haces un ajuste de -1.
+ */
+
+
+-- Movimientos detallados (Histórico/Kardex)
 CREATE TABLE stock_movements
 (
-    id         SERIAL PRIMARY KEY,
-    product_id INTEGER NOT NULL,
-    type       VARCHAR(10) CHECK (type IN ('IN', 'OUT', 'ADJUSTMENT')),
-    amount     INTEGER NOT NULL,
-    reason     TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id               SERIAL PRIMARY KEY,
+    product_id       INTEGER NOT NULL,
+    goods_receipt_id INTEGER REFERENCES goods_receipts (id), -- Conexión directa a recepción
+    type             VARCHAR(10) CHECK (type IN ('IN', 'OUT', 'ADJUSTMENT')),
+    amount           INTEGER NOT NULL,
+    reason           TEXT,
+    updated_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -41,12 +54,28 @@ VALUES (1, 15),  -- MacBook Air M2
        (51, 25), -- Routers TP-Link
        (61, 10), -- Impresoras Epson L3210
        (71, 3),  -- Servidor Dell R750
-       (81, 100);-- Licencias Windows 11
+       (81, 100);
+-- Licencias Windows 11
 
 
-INSERT INTO goods_receipts (purchase_order_id, received_by)
-VALUES (1, 'Leandro R.'), -- Recepción de la orden de Intcomex
-       (4, 'Carlos M.'); -- Recepción de la orden de Logitech
+-- Registramos las recepciones primero
+INSERT INTO goods_receipts (id, purchase_order_id, received_by)
+VALUES (1, 1, 'Leandro R.'),
+       (2, 4, 'Carlos M.'),
+       (3, 4, 'Carlos M.');
+
+
+INSERT INTO stock_movements (product_id, goods_receipt_id, type, amount, reason)
+VALUES
+    -- Entradas asociadas a recepciones
+    (1, 1, 'IN', 15, 'Carga inicial de inventario'),
+    (41, 2, 'IN', 30, 'Abastecimiento mensual Logitech'),
+    -- Movimientos sin recepción previa (ajustes o salidas)
+    (2, 3, 'IN', 10, 'Entrada por Orden de Compra #2'),
+    (11, NULL, 'OUT', 2, 'Venta directa a cliente corporativo'),
+    (21, NULL, 'ADJUSTMENT', -1, 'Unidad dañada en bodega'),
+    (51, NULL, 'OUT', 5, 'Despacho a sucursal vía España');
+
 
 INSERT INTO stock_movements (product_id, type, amount, reason)
 VALUES (1, 'IN', 15, 'Carga inicial de inventario'),

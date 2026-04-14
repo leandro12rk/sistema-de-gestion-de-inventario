@@ -1,7 +1,6 @@
+DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS suppliers;
 DROP TABLE IF EXISTS categories;
-DROP TABLE IF EXISTS products;
-
 
 CREATE TABLE suppliers
 (
@@ -14,6 +13,7 @@ CREATE TABLE suppliers
     status       BOOLEAN   DEFAULT TRUE,
     country      VARCHAR(100),
     city         VARCHAR(100),
+    updated_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -22,7 +22,9 @@ CREATE TABLE categories
     id          SERIAL PRIMARY KEY,
     name        VARCHAR(50) NOT NULL UNIQUE,
     description TEXT,
-    status      BOOLEAN DEFAULT TRUE
+    status      BOOLEAN   DEFAULT TRUE,
+    updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE products
@@ -35,8 +37,45 @@ CREATE TABLE products
     category_id INTEGER REFERENCES categories (id),
     supplier_id INTEGER REFERENCES suppliers (id),
     status      BOOLEAN   DEFAULT TRUE,
+    CONSTRAINT check_positive_price CHECK (price >= 0),
+    updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
 );
+
+-- Índices para mejorar rendimiento de consultas JOIN
+CREATE INDEX idx_products_category ON products (category_id);
+CREATE INDEX idx_products_supplier ON products (supplier_id);
+
+
+--Trigger
+-- Crear la función que actualiza el timestamp
+CREATE OR REPLACE FUNCTION update_timestamp_column()
+RETURNS TRIGGER AS $$
+BEGIN
+   NEW.updated_at = CURRENT_TIMESTAMP;
+RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+-- Aplicar el trigger a tu tabla de productos
+CREATE TRIGGER update_products_modtime
+    BEFORE UPDATE ON products
+    FOR EACH ROW
+    EXECUTE FUNCTION update_timestamp_column();
+-- Aplicar el trigger a tu tabla de productos
+CREATE TRIGGER update_products_modtime
+    BEFORE UPDATE ON categories
+    FOR EACH ROW
+    EXECUTE FUNCTION update_timestamp_column();
+
+-- Aplicar el trigger a tu tabla de productos
+CREATE TRIGGER update_products_modtime
+    BEFORE UPDATE ON suppliers
+    FOR EACH ROW
+    EXECUTE FUNCTION update_timestamp_column();
+
+
 
 
 -- Categorías
@@ -197,3 +236,4 @@ VALUES
 ('ACC-WD-MYP', 'WD My Passport 5TB', 'Disco externo portable', 140.00, 10, 2),
 ('ACC-HYP-FURY', 'HyperX Pulsefire Mat L', 'Mousepad tela profesional', 25.00, 10, 1),
 ('ACC-KIN-A40', 'Kingston Workflow Station', 'Hub para creadores de contenido', 99.00, 10, 6);
+
