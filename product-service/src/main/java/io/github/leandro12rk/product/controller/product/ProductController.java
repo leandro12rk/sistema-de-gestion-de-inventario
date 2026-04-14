@@ -1,74 +1,57 @@
 package io.github.leandro12rk.product.controller.product;
 
+import io.github.leandro12rk.product.dto.product.ProductFilterDTO;
 import io.github.leandro12rk.product.model.product.ProductModel;
 import io.github.leandro12rk.product.projection.product.ProductGetProjection;
 import io.github.leandro12rk.product.projection.product.ProductNameProjection;
 import io.github.leandro12rk.product.repository.product.ProductRepository;
+import io.github.leandro12rk.product.service.product.ProductService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
-    private final ProductRepository productRepository;
+    private final ProductService productService;
 
-
-    public ProductController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
 
-
-    // 1. Obtener todos los productos
+    //  Get All Products
     @GetMapping
-    public List<ProductGetProjection> getAllProducts() {
-        return productRepository.findAllProjectedBy();
+    public ResponseEntity<List<ProductGetProjection>> getAllProducts(@ModelAttribute ProductFilterDTO filter) {
+        return ResponseEntity.ok(productService.getAllProducts(filter));
     }
 
-    // 2. Obtener un producto por ID
-    @GetMapping("/{productId}")
-    public ResponseEntity<ProductGetProjection> getProductById(@PathVariable Long productId) {
-        return productRepository.findProjectedById(productId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
-    }
-
+    // Get Product Name By ID
     @GetMapping("/{productId}/name")
     public ResponseEntity<ProductNameProjection> getProductName(@PathVariable Long productId) {
-        return productRepository.findNameProjectById(productId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(productService.getProductName(productId));
     }
 
+    // Delete Product By ID
     @DeleteMapping("/{productId}")
-    public String deleteProduct(@PathVariable Long productId) {
-        return productRepository.findById(productId).map(product -> {
-            productRepository.delete(product);
-            return "Producto con ID " + productId + " eliminado correctamente.";
-        }).orElse("Error: No se encontró el producto con ID " + productId);
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long productId) {
+        productService.deleteProduct(productId);
+        return ResponseEntity.noContent().build();
     }
 
+    // Create New Product
     @PostMapping
-    public ProductModel createProduct(@RequestBody ProductModel product) {
-        return productRepository.save(product);
+    public ResponseEntity<ProductModel> createProduct(@Valid @RequestBody ProductModel product) {
+        ProductModel created = productService.createProduct(product);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
+    // Update Product By ID
     @PutMapping("/{productId}")
-    public ProductModel updateProduct(@PathVariable Long productId, @RequestBody ProductModel productDetails) {
-        // 1. Buscamos si el producto existe antes de intentar actualizar
-        return productRepository.findById(productId).map(product -> {
-            product.setId(productId);
-            // 2. Actualizamos los campos con los nuevos datos que vienen en el Body
-            product.setName(productDetails.getName());
-            product.setDescription(productDetails.getDescription());
-            product.setPrice(productDetails.getPrice());
-            product.setSku(productDetails.getSku());
-            product.setStatus(productDetails.isStatus());
-            if (productDetails.getCategory() != null) {
-                product.setCategory(productDetails.getCategory());
-            }
-            if (productDetails.getSupplier() != null) {
-                product.setSupplier(productDetails.getSupplier());
-            }
-            // 3. Guardamos los cambios (esto disparará un UPDATE en SQL)
-            return productRepository.save(product);
-        }).orElse(null); // Aquí podrías lanzar una excepción personalizada después
+    public ResponseEntity<ProductModel> updateProduct(@PathVariable Long productId, @Valid @RequestBody ProductModel productDetails) {
+        return ResponseEntity.ok(productService.updateProduct(productId, productDetails));
     }
+
 }

@@ -11,11 +11,18 @@ public interface ProductGetProjection {
     Boolean getStatus();
     String getDescription();
     java.time.LocalDateTime getCreatedAt();
-    // Traemos solo el nombre de la categoría
+    java.time.LocalDateTime getUpdatedAt();
+
+    // Traemos el nombre de la categoría
     @Value("#{target.category.name}")
     String getCategoryName();
-
-    // Traemos solo el nombre de la empresa proveedora
+    // Traemos el ID de la categoría
+    @Value("#{target.category.id}")
+    Long getCategoryId();
+    // Traemos el nombre de la empresa proveedora
     @Value("#{target.supplier.companyName}")
     String getSupplierName();
+    // Traemos el ID de la empresa proveedora
+    @Value("#{target.supplier.id}")
+    Long getSupplierId();
 }
