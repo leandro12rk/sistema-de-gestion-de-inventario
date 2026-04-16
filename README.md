@@ -9,7 +9,7 @@ El sistema implementa un patrón de **Base de Datos por Servicio** para asegurar
 *Este diagrama se sincroniza con la lógica definida en `architecture/architectureMicroService.mmd`.*
 
 ### 🏗️ Arquitectura del Sistema
-![Diagrama de Arquitectura](https://mermaid.ink/img/raw/https://github.com/leandro12rk/SistemaDeGestionDeInventario/blob/main/architecture/architectureMicroService.mmd)
+![Diagrama de Arquitectura](https://github.com/leandro12rk/SistemaDeGestionDeInventario/blob/main/architecture/architectureMicroService.mmd)
 
 # 🛠️ Componentes Principales
 Config Server: Centralización de propiedades y perfiles de configuración.
