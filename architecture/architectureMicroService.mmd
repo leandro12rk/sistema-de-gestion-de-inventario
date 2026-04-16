@@ -1,0 +1,48 @@
+---
+config:
+  theme: neutral
+  look: neo
+  layout: dagre
+---
+graph TD
+    %% Cliente y Entrada
+    Client[Computadora Cliente] -- Request --> Gateway[Default Gateway <br/>/Spring Cloud Gateway/]
+
+    %% Servidor de Descubrimiento
+    subgraph Discovery_Layer [Capa de Infraestructura]
+        Eureka[<b>Eureka Server</b><br/>Servidor de Nombramiento]
+    end
+
+    %% Microservicios
+    subgraph Spring_Boot_Cluster [Microservicios en SpringBoot]
+        MS_Prod[Microservicio de Productos]
+        MS_Comp[Microservicio de Compras]
+        MS_Inv[Microservicio de Inventario]
+    end
+
+    %% Bases de Datos
+    subgraph Docker_DBs [Orquestador de Base de Datos - Docker]
+        DB_Prod[(DB Productos)]
+        DB_Comp[(DB Compras)]
+        DB_Inv[(DB Inventario)]
+    end
+
+    %% Relaciones de Registro (Eureka)
+    MS_Prod -.->|Registro| Eureka
+    MS_Comp -.->|Registro| Eureka
+    MS_Inv -.->|Registro| Eureka
+    Gateway -.->|Busca servicios| Eureka
+
+    %% Comunicación OpenFeign
+    MS_Comp == OpenFeign ==> MS_Prod
+    MS_Comp == OpenFeign ==> MS_Inv
+
+    %% Conexiones a BD
+    MS_Prod --- DB_Prod
+    MS_Comp --- DB_Comp
+    MS_Inv --- DB_Inv
+
+    %% Estilos
+    style Eureka fill:#f9f,stroke:#333,stroke-width:2px
+    style Discovery_Layer fill:#fff1f1,stroke:#d32f2f,stroke-dasharray: 5 5
+    style MS_Comp fill:#e1f5fe,stroke:#01579b
