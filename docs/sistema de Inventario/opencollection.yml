@@ -1,0 +1,64 @@
+opencollection: 1.0.0
+
+info:
+  name: Micro Service Inventory System
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ""
+      port: ""
+      auth:
+        username: ""
+        password: ""
+      bypassProxy: ""
+
+docs:
+  content: |-
+    📝 Documentación del Sistema de Gestión de Inventario
+    Bienvenido a la colección de APIs del Sistema de Gestión de Inventario. Este proyecto utiliza una arquitectura de microservicios para gestionar productos, stock y órdenes de compra.
+
+    🚀 Arquitectura del Sistema
+    El sistema está dividido en tres servicios principales que se comunican a través de un API Gateway:
+
+    Product Service (Puerto 9090): Gestión del catálogo de productos y categorías.
+
+    Inventory Service (Puerto 9091): Control de existencias y almacenes.
+
+    Purchase Service (Puerto 9092): Gestión de órdenes de compra y proveedores.
+
+    API Gateway (Puerto 9000): Punto de entrada único (Ruta base: /api/v01).
+
+    🛠️ Configuración Local
+    Para ejecutar estas peticiones, asegúrate de tener levantado el entorno con Docker:
+
+    Bases de Datos: PostgreSQL corriendo en los puertos 5432, 5433 y 5434.
+
+    Servicios: Todos los microservicios deben estar registrados en Eureka (si aplica) o activos.
+
+    🔐 Variables de Entorno
+    Esta colección utiliza un entorno (environment) llamado probablemente "Local". Asegúrate de que tenga las siguientes variables:
+
+    baseUrl: http://localhost:9000/api/v01
+
+    productServiceUrl: http://localhost:9090
+
+    📌 Mejores Prácticas al Probar
+    Filtros: Para el Product Service, puedes filtrar por proveedor usando el parámetro ?supplierName=.
+
+    Validación: Todas las peticiones POST y PUT requieren un cuerpo en formato JSON. Verifica que no falte el campo name para evitar errores 400.
+
+    Orden de ejecución: Se recomienda crear primero un Producto antes de intentar actualizar su Inventario.
+
+    📞 Contacto y Soporte
+    Desarrollador: Leandro
+
+    Repositorio: GitHub - SistemaDeGestionDeInventario
+  type: text/markdown
+bundled: false
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git

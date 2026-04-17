@@ -1,0 +1,31 @@
+info:
+  name: Update Supplier Data By Id
+  type: http
+  seq: 5
+
+http:
+  method: PUT
+  url: "{{URL}}/products/supplier/11"
+  body:
+    type: json
+    data: |-
+      {
+        "id": 4,
+        "companyName": "HP Inc Panamá",
+        "contactName": "Elena Gómez",
+        "email": "contacto@hp.pa",
+        "phone": "+507 260-1122",
+        "address": "Torre de las Américas",
+        "status": false,
+        "country": "Panamá",
+        "city": "Panamá",
+        "createdAt": "2026-04-15T01:34:01.617014",
+        "updateAt": null
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

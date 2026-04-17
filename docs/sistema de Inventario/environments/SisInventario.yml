@@ -1,0 +1,4 @@
+name: product-service
+variables:
+  - name: URL
+    value: http://localhost:9000/api/v01

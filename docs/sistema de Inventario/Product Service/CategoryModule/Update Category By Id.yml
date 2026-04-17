@@ -1,0 +1,23 @@
+info:
+  name: Update Category By Id
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: "{{URL}}/products/category/11"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Laptop Gamer",
+        "description": "Equipos portátiles para oficina y gaming",
+        "status": false
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

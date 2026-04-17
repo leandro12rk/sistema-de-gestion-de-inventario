@@ -1,0 +1,30 @@
+info:
+  name: Test Post
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://localhost:9090/products
+  body:
+    type: json
+    data: |-
+      {
+        "name": "SSD Samsung 980 Pro - v5 testing ",
+        "description": "Especificación técnica modelo 2026 serie 5",
+        "price": 478.67,
+        "category_id": {
+          "id": 1
+        },
+        "supplier": {
+          "id": 1
+        },
+        "sku":"DSD-322"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

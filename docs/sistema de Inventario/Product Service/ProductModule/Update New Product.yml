@@ -1,0 +1,31 @@
+info:
+  name: Update New Product
+  type: http
+  seq: 5
+
+http:
+  method: PUT
+  url: "{{URL}}/products/2"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Dell XPS 13 9315",
+        "description": "Intel Core i7, 16GB RAM, 512GB SSD",
+        "price": 1250.00,
+        "category_id": {
+          "id": 1
+        },
+        "supplier": {
+          "id": 3
+        },
+        "status": false,
+        "sku": "LAP-DELL-XPS13"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

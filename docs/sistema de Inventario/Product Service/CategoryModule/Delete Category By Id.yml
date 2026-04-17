@@ -1,0 +1,15 @@
+info:
+  name: Delete Category By Id
+  type: http
+  seq: 5
+
+http:
+  method: DELETE
+  url: "{{URL}}/products/category/13"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

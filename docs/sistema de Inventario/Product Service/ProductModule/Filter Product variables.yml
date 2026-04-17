@@ -1,0 +1,31 @@
+info:
+  name: Filter Product variables
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{URL}}/products?supplierName=Cisco Systems PA"
+  params:
+    - name: supplierName
+      value: Cisco Systems PA
+      type: query
+    - name: status
+      value: "true"
+      type: query
+      disabled: true
+    - name: categoryName
+      value: Laptops
+      type: query
+      disabled: true
+    - name: sku
+      value: LAP-HP-ENVY13
+      type: query
+      disabled: true
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

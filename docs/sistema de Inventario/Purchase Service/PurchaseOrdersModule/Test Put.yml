@@ -1,0 +1,23 @@
+info:
+  name: Test Put
+  type: http
+  seq: 2
+
+http:
+  method: PUT
+  url: http://localhost:9090/category/11
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Laptop Gamer",
+        "description": "Equipos portátiles para oficina y gaming",
+        "status": false
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
