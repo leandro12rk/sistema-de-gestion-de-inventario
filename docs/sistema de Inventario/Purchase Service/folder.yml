@@ -1,7 +1,17 @@
 info:
   name: Purchase Service
   type: folder
-  seq: 3
+  seq: 1
 
 request:
   auth: inherit
+
+docs:
+  content: |-
+    Purchase Service
+    Gestiona ordenes de compra y sus detalles.
+
+    Modulos
+    PurchaseOrderDetailsModule: detalle de productos en ordenes.
+    PurchaseOrdersModule: cabecera y estado de ordenes de compra.
+  type: text/markdown

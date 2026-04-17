@@ -1,7 +1,22 @@
 info:
   name: SupplierModule
   type: folder
-  seq: 3
+  seq: 1
 
 request:
   auth: inherit
+
+docs:
+  content: |-
+    ### CRUD de proveedores relacionados a productos.
+
+
+    ```json
+    GET Get All Supplier Data: lista proveedores.
+    GET Get Supplier By Id: detalle de proveedor.
+    GET Get Supplier Name By Id: consulta nombre de proveedor.
+    POST Create a New Supplier: crea proveedor.
+    PUT Update Supplier Data By Id: actualiza proveedor.
+    DELETE Delete Supplier By Id: elimina proveedor.
+    ```
+  type: text/markdown

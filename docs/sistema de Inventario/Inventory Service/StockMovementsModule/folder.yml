@@ -1,7 +1,19 @@
 info:
   name: StockMovementsModule
   type: folder
-  seq: 3
+  seq: 1
 
 request:
   auth: inherit
+
+docs:
+  content: |-
+    StockMovementsModule
+    APIs de movimientos de stock por producto.
+
+    GET Test Get List: consulta listado de movimientos.
+    GET Test Get by ID: obtiene detalle de un movimiento.
+    POST Test Post: crea un movimiento de inventario.
+    PUT Test Put: actualiza datos del movimiento.
+    DELETE Test Delete: elimina un movimiento.
+  type: text/markdown

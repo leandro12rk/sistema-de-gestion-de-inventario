@@ -62,3 +62,7 @@ extensions:
     ignore:
       - node_modules
       - .git
+    presets:
+      request:
+        type: http
+        url: http://localhost:9000/api/v01

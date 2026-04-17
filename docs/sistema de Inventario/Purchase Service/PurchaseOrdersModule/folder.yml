@@ -1,7 +1,19 @@
 info:
   name: PurchaseOrdersModule
   type: folder
-  seq: 2
+  seq: 1
 
 request:
   auth: inherit
+
+docs:
+  content: |-
+    PurchaseOrdersModule
+    APIs para administrar ordenes de compra.
+
+    GET Test Get List: lista ordenes.
+    GET Test Get by ID: detalle de una orden.
+    POST Test Post: crea orden de compra.
+    PUT Test Put: actualiza orden.
+    DELETE Test Delete: elimina orden.
+  type: text/markdown

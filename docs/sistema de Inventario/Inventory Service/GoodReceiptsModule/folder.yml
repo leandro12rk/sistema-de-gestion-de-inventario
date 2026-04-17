@@ -5,3 +5,14 @@ info:
 
 request:
   auth: inherit
+
+docs:
+  content: |-
+    GoodReceiptsModule
+    Administra entradas de mercancia al inventario.
+
+    GET Get ALl Product Filter: consulta productos/entradas filtradas.
+    POST Test Post: registra una nueva recepcion.
+    PUT Test Put: actualiza una recepcion existente.
+    DELETE Test Delete: elimina registro de recepcion.
+  type: text/markdown

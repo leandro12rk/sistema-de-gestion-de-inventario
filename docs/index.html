@@ -1,25 +1,344 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Micro Service Inventory System - API Documentation</title>
-    <style>
-        body { margin: 0; padding: 0; }
-        #opencollection-container { width: 100vw; height: 100vh; }
-    </style>
-    <link rel="stylesheet" href="https://cdn.opencollection.com/docs.css">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="https://cdn.opencollection.com/docs.css" />
     <script src="https://cdn.opencollection.com/docs.js"></script>
-</head>
-<body>
-    <div id="opencollection-container"></div>
+  </head>
+  <body>
+    <header class="top-navbar">
+      <h1 class="brand-title">Micro Service Inventory System</h1>
+      <nav class="nav-items" aria-label="Navegacion principal">
+        <button class="nav-btn is-active" type="button" data-view="api">
+          API Collections
+        </button>
+        <button class="nav-btn" type="button" data-view="architecture">
+          Arquitectura
+        </button>
+        <button class="nav-btn" type="button" data-view="docs">
+          Documentacion API
+        </button>
+      </nav>
+    </header>
+
+    <main class="view-stack">
+      <section class="view-panel is-active" data-panel="api">
+        <div class="panel-shell">
+          <div id="opencollection-container">
+            <div class="app-loading">Cargando documentacion...</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view-panel" data-panel="architecture">
+        <div class="panel-shell arch-content">
+          <div class="arch-image-wrap">
+            <img
+              src="https://raw.githubusercontent.com/leandro12rk/SistemaDeGestionDeInventario/main/architecture/architectureMicroService.png"
+              alt="Arquitectura Micro Service Inventory System" />
+          </div>
+          <div class="arch-copy">
+            <h2>Arquitectura del sistema</h2>
+            <p>
+              El sistema se organiza por microservicios y usa un API Gateway
+              como punto de entrada para exponer una sola ruta base.
+            </p>
+            <div class="arch-kpis">
+              <div class="arch-kpi">
+                <strong>Product Service</strong>
+                <span>Catalogo, categorias y proveedores en puerto 9090.</span>
+              </div>
+              <div class="arch-kpi">
+                <strong>Inventory Service</strong>
+                <span>Movimientos, stock y recepciones en puerto 9091.</span>
+              </div>
+              <div class="arch-kpi">
+                <strong>Purchase Service</strong>
+                <span>Ordenes y detalles de compra en puerto 9092.</span>
+              </div>
+              <div class="arch-kpi">
+                <strong>API Gateway</strong>
+                <span>Punto unico de entrada en puerto 9000 con /api/v01.</span>
+              </div>
+            </div>
+            <ul>
+              <li>Product Service en puerto 9090.</li>
+              <li>Inventory Service en puerto 9091.</li>
+              <li>Purchase Service en puerto 9092.</li>
+              <li>Gateway en puerto 9000 con la ruta base /api/v01.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="view-panel" data-panel="docs">
+        <div class="panel-shell docs-content">
+          <div class="docs-block" id="docs-api-content">
+            <p>Cargando documentacion general...</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <span class="footer-text">Leandro RK</span>
+      <span class="footer-sep">•</span>
+      <a
+        class="footer-link"
+        href="https://leandrork12.dev/"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Portafolio</a
+      >
+      <span class="footer-sep">•</span>
+      <a
+        class="footer-link"
+        href="https://github.com/leandro12rk/SistemaDeGestionDeInventario"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Repositorio</a
+      >
+      <span class="footer-sep">•</span>
+      <a
+        class="footer-link"
+        href="https://github.com/leandro12rk"
+        target="_blank"
+        rel="noopener noreferrer"
+        >GitHub</a
+      >
+    </footer>
+
+    <div id="docs-parser-fallback" style="display: none">
+      <p>No se encontro el bloque docs general de la coleccion.</p>
+    </div>
+
     <script>
-        const collectionData = "opencollection: 1.0.0\ninfo:\n  name: Micro Service Inventory System\nconfig:\n  proxy:\n    inherit: true\n    config:\n      protocol: http\n      hostname: ''\n      port: ''\n      auth:\n        username: ''\n        password: ''\n      bypassProxy: ''\n  environments:\n    - name: SisInventario\n      variables:\n        - name: URL\n          value: http://localhost:9000/api/v01\nitems:\n  - info:\n      name: Inventory Service\n      type: folder\n      seq: 2\n    request:\n      auth: inherit\n    items:\n      - info:\n          name: StockMovementsModule\n          type: folder\n          seq: 3\n        request:\n          auth: inherit\n        items:\n          - info:\n              name: Test Delete\n              type: http\n              seq: 4\n            http:\n              method: DELETE\n              url: '{{URL}}102'\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Get by ID copy\n              type: http\n              seq: 6\n            http:\n              method: GET\n              url: http://localhost:9090/supplier/1/name\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Get by ID\n              type: http\n              seq: 1\n            http:\n              method: GET\n              url: http://localhost:9092/purchase-orders\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Get List\n              type: http\n              seq: 5\n            http:\n              method: GET\n              url: http://localhost:9092/purchase-order-details/2\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Post\n              type: http\n              seq: 3\n            http:\n              method: POST\n              url: '{{URL}}'\n              body:\n                type: json\n                data: |-\n                  {\n                    \"name\": \"SSD Samsung 980 Pro - v5 testing \",\n                    \"description\": \"Especificaci\xF3n t\xE9cnica modelo 2026 serie 5\",\n                    \"price\": 478.67,\n                    \"category_id\": {\n                      \"id\": 1\n                    },\n                    \"supplier\": {\n                      \"id\": 1\n                    },\n                    \"sku\":\"DSD-322\"\n                  }\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Put\n              type: http\n              seq: 2\n            http:\n              method: PUT\n              url: '{{URL}}51'\n              body:\n                type: json\n                data: |-\n                  {\n                    \"name\": \"SSD Samsung 980 Pro - v5\",\n                    \"description\": \"Especificaci\xF3n t\xE9cnica modelo 2026 serie 5\",\n                    \"price\": 478.67,\n                    \"category_id\":{\n                      \"id\":1\n                    }\n                  }\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n      - info:\n          name: GoodReceiptsModule\n          type: folder\n          seq: 1\n        request:\n          auth: inherit\n        items:\n          - info:\n              name: Get ALl Product Filter\n              type: http\n              seq: 2\n            http:\n              method: GET\n              url: '{{URL}}/inventory'\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Delete\n              type: http\n              seq: 4\n            http:\n              method: DELETE\n              url: http://localhost:9090/products/1135\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Get List\n              type: http\n              seq: 5\n            http:\n              method: GET\n              url: '{{URL}}/products/dashboard'\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Post\n              type: http\n              seq: 2\n            http:\n              method: POST\n              url: http://localhost:9090/products\n              body:\n                type: json\n                data: |-\n                  {\n                    \"name\": \"SSD Samsung 980 Pro - v5 testing \",\n                    \"description\": \"Especificaci\xF3n t\xE9cnica modelo 2026 serie 5\",\n                    \"price\": 478.67,\n                    \"category_id\": {\n                      \"id\": 1\n                    },\n                    \"supplier\": {\n                      \"id\": 1\n                    },\n                    \"sku\":\"DSD-322\"\n                  }\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Put\n              type: http\n              seq: 2\n            http:\n              method: PUT\n              url: http://localhost:9090/products/135\n              body:\n                type: json\n                data: |-\n                  {\n                    \"name\": \"SSD Samsung 980 Pro - v5 testing \",\n                    \"description\": \"Especificaci\xF3n t\xE9cnica modelo 2026 serie 5\",\n                    \"price\": 478.67,\n                    \"category_id\": {\n                      \"id\": 1\n                    },\n                    \"supplier\": {\n                      \"id\": 1\n                    },\n                     \"status\": true,\n                    \"sku\":\"DSD-322KK\"\n                  }\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n      - info:\n          name: InventoryModule\n          type: folder\n          seq: 2\n        request:\n          auth: inherit\n        items:\n          - info:\n              name: Test Delete\n              type: http\n              seq: 4\n            http:\n              method: DELETE\n              url: '{{URL}}102'\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Get by ID\n              type: http\n              seq: 1\n            http:\n              method: GET\n              url: '{{URL}}/inventory'\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Get List\n              type: http\n              seq: 5\n            http:\n              method: GET\n              url: http://localhost:9000/api/v01/products/category\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Post\n              type: http\n              seq: 3\n            http:\n              method: POST\n              url: http://localhost:9090/category\n              body:\n                type: json\n                data: |-\n                  {\n                    \"name\": \"Laptop Gamer\",\n                    \"description\": \"Equipos port\xE1tiles para oficina y gaming\",\n                    \"status\": true\n                  }\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Put\n              type: http\n              seq: 2\n            http:\n              method: PUT\n              url: http://localhost:9090/category/11\n              body:\n                type: json\n                data: |-\n                  {\n                    \"name\": \"Laptop Gamer\",\n                    \"description\": \"Equipos port\xE1tiles para oficina y gaming\",\n                    \"status\": false\n                  }\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n  - info:\n      name: Product Service\n      type: folder\n      seq: 1\n    request:\n      auth: inherit\n    items:\n      - info:\n          name: CategoryModule\n          type: folder\n          seq: 2\n        request:\n          auth: inherit\n        items:\n          - info:\n              name: Create a New Category\n              type: http\n              seq: 3\n            http:\n              method: POST\n              url: '{{URL}}/products/category'\n              body:\n                type: json\n                data: |-\n                  {\n                    \"name\": \"Laptop Gamessr\",\n                    \"description\": \"Equipos port\xE1tiles para oficina y gaming tse\",\n                    \"status\": true\n                  }\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Delete Category By Id\n              type: http\n              seq: 5\n            http:\n              method: DELETE\n              url: '{{URL}}/products/category/13'\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Get All Category Information\n              type: http\n              seq: 1\n            http:\n              method: GET\n              url: '{{URL}}/products/category'\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Get Category By Id\n              type: http\n              seq: 2\n            http:\n              method: GET\n              url: '{{URL}}/products/category/11'\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Update Category By Id\n              type: http\n              seq: 4\n            http:\n              method: PUT\n              url: '{{URL}}/products/category/11'\n              body:\n                type: json\n                data: |-\n                  {\n                    \"name\": \"Laptop Gamer\",\n                    \"description\": \"Equipos port\xE1tiles para oficina y gaming\",\n                    \"status\": false\n                  }\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n      - info:\n          name: ProductModule\n          type: folder\n          seq: 1\n        request:\n          auth: inherit\n        docs:\n          content: |\n            ### Ejemplo de petici\xF3n (Request Body)\n\n            ```json\n            {\n              \"name\": \"Dell XPS 13 9315\",\n              \"description\": \"Intel Core i7, 16GB RAM, 512GB SSD\",\n              \"price\": 1250.00,\n              \"category_id\": {\n                \"id\": 1\n              },\n              \"supplier\": {\n                \"id\": 3\n              },\n              \"status\": false,\n              \"sku\": \"LAP-DEL-XPS13\"\n            }\n          type: text/markdown\n        items:\n          - info:\n              name: Create a New Product\n              type: http\n              seq: 4\n            http:\n              method: POST\n              url: '{{URL}}/products'\n              body:\n                type: json\n                data: |-\n                  {\n                    \"name\": \"SSD Samsung 980 Pro - v5 testing \",\n                    \"description\": \"Especificaci\xF3n t\xE9cnica modelo 2026 serie 5\",\n                    \"price\": 478.67,\n                    \"category_id\": {\n                      \"id\": 1\n                    },\n                    \"supplier\": {\n                      \"id\": 1\n                    },\n                    \"sku\":\"DSD-322\"\n                  }\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Delete Product By Id\n              type: http\n              seq: 6\n            http:\n              method: DELETE\n              url: '{{URL}}/products/1135'\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Filter Product variables\n              type: http\n              seq: 2\n            http:\n              method: GET\n              url: '{{URL}}/products?supplierName=Cisco Systems PA'\n              params:\n                - name: supplierName\n                  value: Cisco Systems PA\n                  type: query\n                - name: status\n                  value: 'true'\n                  type: query\n                  disabled: true\n                - name: categoryName\n                  value: Laptops\n                  type: query\n                  disabled: true\n                - name: sku\n                  value: LAP-HP-ENVY13\n                  type: query\n                  disabled: true\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Get All Product Data\n              type: http\n              seq: 1\n            http:\n              method: GET\n              url: '{{URL}}/products'\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Get Dashboard Data\n              type: http\n              seq: 3\n            http:\n              method: GET\n              url: '{{URL}}/products/dashboard'\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Update New Product\n              type: http\n              seq: 5\n            http:\n              method: PUT\n              url: '{{URL}}/products/2'\n              body:\n                type: json\n                data: |-\n                  {\n                    \"name\": \"Dell XPS 13 9315\",\n                    \"description\": \"Intel Core i7, 16GB RAM, 512GB SSD\",\n                    \"price\": 1250.00,\n                    \"category_id\": {\n                      \"id\": 1\n                    },\n                    \"supplier\": {\n                      \"id\": 3\n                    },\n                    \"status\": false,\n                    \"sku\": \"LAP-DELL-XPS13\"\n                  }\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n      - info:\n          name: SupplierModule\n          type: folder\n          seq: 3\n        request:\n          auth: inherit\n        items:\n          - info:\n              name: Create a New Supplier\n              type: http\n              seq: 4\n            http:\n              method: POST\n              url: '{{URL}}/products/supplier'\n              body:\n                type: json\n                data: |-\n                  {\n                    \"companyName\": \"HP Inc Panam\xE1\",\n                    \"contactName\": \"Elena G\xF3mez\",\n                    \"email\": \"contacto@hp.pa\",\n                    \"phone\": \"+507 260-1122\",\n                    \"address\": \"Torre de las Am\xE9ricas\",\n                    \"status\": true,\n                    \"country\": \"Panam\xE1\",\n                    \"city\": \"Panam\xE1\",\n                    \"createdAt\": \"2026-04-15T01:34:01.617014\",\n                    \"updateAt\": null\n                  }\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Delete Supplier By Id\n              type: http\n              seq: 6\n            http:\n              method: DELETE\n              url: '{{URL}}/products/supplier/11'\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Get All Supplier Data\n              type: http\n              seq: 1\n            http:\n              method: GET\n              url: '{{URL}}/products/supplier'\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Get Supplier By Id\n              type: http\n              seq: 2\n            http:\n              method: GET\n              url: '{{URL}}/products/supplier/11'\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Get Supplier Name By Id\n              type: http\n              seq: 3\n            http:\n              method: GET\n              url: '{{URL}}/products/supplier/8/name'\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Update Supplier Data By Id\n              type: http\n              seq: 5\n            http:\n              method: PUT\n              url: '{{URL}}/products/supplier/11'\n              body:\n                type: json\n                data: |-\n                  {\n                    \"id\": 4,\n                    \"companyName\": \"HP Inc Panam\xE1\",\n                    \"contactName\": \"Elena G\xF3mez\",\n                    \"email\": \"contacto@hp.pa\",\n                    \"phone\": \"+507 260-1122\",\n                    \"address\": \"Torre de las Am\xE9ricas\",\n                    \"status\": false,\n                    \"country\": \"Panam\xE1\",\n                    \"city\": \"Panam\xE1\",\n                    \"createdAt\": \"2026-04-15T01:34:01.617014\",\n                    \"updateAt\": null\n                  }\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n  - info:\n      name: Purchase Service\n      type: folder\n      seq: 3\n    request:\n      auth: inherit\n    items:\n      - info:\n          name: PurchaseOrderDetailsModule\n          type: folder\n          seq: 1\n        request:\n          auth: inherit\n        items:\n          - info:\n              name: Get ALl Product Filter\n              type: http\n              seq: 2\n            http:\n              method: GET\n              url: '{{URL}}/purchase/purchase-orders'\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Delete\n              type: http\n              seq: 4\n            http:\n              method: DELETE\n              url: http://localhost:9090/products/1135\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Get List\n              type: http\n              seq: 5\n            http:\n              method: GET\n              url: '{{URL}}/products/dashboard'\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Post\n              type: http\n              seq: 2\n            http:\n              method: POST\n              url: http://localhost:9090/products\n              body:\n                type: json\n                data: |-\n                  {\n                    \"name\": \"SSD Samsung 980 Pro - v5 testing \",\n                    \"description\": \"Especificaci\xF3n t\xE9cnica modelo 2026 serie 5\",\n                    \"price\": 478.67,\n                    \"category_id\": {\n                      \"id\": 1\n                    },\n                    \"supplier\": {\n                      \"id\": 1\n                    },\n                    \"sku\":\"DSD-322\"\n                  }\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Put\n              type: http\n              seq: 2\n            http:\n              method: PUT\n              url: http://localhost:9090/products/135\n              body:\n                type: json\n                data: |-\n                  {\n                    \"name\": \"SSD Samsung 980 Pro - v5 testing \",\n                    \"description\": \"Especificaci\xF3n t\xE9cnica modelo 2026 serie 5\",\n                    \"price\": 478.67,\n                    \"category_id\": {\n                      \"id\": 1\n                    },\n                    \"supplier\": {\n                      \"id\": 1\n                    },\n                     \"status\": true,\n                    \"sku\":\"DSD-322KK\"\n                  }\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n      - info:\n          name: PurchaseOrdersModule\n          type: folder\n          seq: 2\n        request:\n          auth: inherit\n        items:\n          - info:\n              name: Test Delete\n              type: http\n              seq: 4\n            http:\n              method: DELETE\n              url: '{{URL}}102'\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Get by ID\n              type: http\n              seq: 1\n            http:\n              method: GET\n              url: http://localhost:9090/category/11\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Get List\n              type: http\n              seq: 5\n            http:\n              method: GET\n              url: http://localhost:9000/api/v01/products/category\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Post\n              type: http\n              seq: 3\n            http:\n              method: POST\n              url: http://localhost:9090/category\n              body:\n                type: json\n                data: |-\n                  {\n                    \"name\": \"Laptop Gamer\",\n                    \"description\": \"Equipos port\xE1tiles para oficina y gaming\",\n                    \"status\": true\n                  }\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\n          - info:\n              name: Test Put\n              type: http\n              seq: 2\n            http:\n              method: PUT\n              url: http://localhost:9090/category/11\n              body:\n                type: json\n                data: |-\n                  {\n                    \"name\": \"Laptop Gamer\",\n                    \"description\": \"Equipos port\xE1tiles para oficina y gaming\",\n                    \"status\": false\n                  }\n              auth: inherit\n            settings:\n              encodeUrl: true\n              timeout: 0\n              followRedirects: true\n              maxRedirects: 5\ndocs:\n  content: |-\n    \uD83D\uDCDD Documentaci\xF3n del Sistema de Gesti\xF3n de Inventario\n    Bienvenido a la colecci\xF3n de APIs del Sistema de Gesti\xF3n de Inventario. Este proyecto utiliza una arquitectura de microservicios para gestionar productos, stock y \xF3rdenes de compra.\n\n    \uD83D\uDE80 Arquitectura del Sistema\n    El sistema est\xE1 dividido en tres servicios principales que se comunican a trav\xE9s de un API Gateway:\n\n    Product Service (Puerto 9090): Gesti\xF3n del cat\xE1logo de productos y categor\xEDas.\n\n    Inventory Service (Puerto 9091): Control de existencias y almacenes.\n\n    Purchase Service (Puerto 9092): Gesti\xF3n de \xF3rdenes de compra y proveedores.\n\n    API Gateway (Puerto 9000): Punto de entrada \xFAnico (Ruta base: /api/v01).\n\n    \uD83D\uDEE0\uFE0F Configuraci\xF3n Local\n    Para ejecutar estas peticiones, aseg\xFArate de tener levantado el entorno con Docker:\n\n    Bases de Datos: PostgreSQL corriendo en los puertos 5432, 5433 y 5434.\n\n    Servicios: Todos los microservicios deben estar registrados en Eureka (si aplica) o activos.\n\n    \uD83D\uDD10 Variables de Entorno\n    Esta colecci\xF3n utiliza un entorno (environment) llamado probablemente \"Local\". Aseg\xFArate de que tenga las siguientes variables:\n\n    baseUrl: http://localhost:9000/api/v01\n\n    productServiceUrl: http://localhost:9090\n\n    \uD83D\uDCCC Mejores Pr\xE1cticas al Probar\n    Filtros: Para el Product Service, puedes filtrar por proveedor usando el par\xE1metro ?supplierName=.\n\n    Validaci\xF3n: Todas las peticiones POST y PUT requieren un cuerpo en formato JSON. Verifica que no falte el campo name para evitar errores 400.\n\n    Orden de ejecuci\xF3n: Se recomienda crear primero un Producto antes de intentar actualizar su Inventario.\n\n    \uD83D\uDCDE Contacto y Soporte\n    Desarrollador: Leandro\n\n    Repositorio: GitHub - SistemaDeGestionDeInventario\n  type: text/markdown\nbundled: true\nextensions:\n  bruno:\n    ignore:\n      - node_modules\n      - .git\n    exportedAt: '2026-04-17T16:46:52.018Z'\n    exportedUsing: Bruno/3.2.2\n";
-        new window.OpenCollection({
-            target: document.getElementById('opencollection-container'),
-            opencollection: collectionData,
-            theme: 'light'
+      const yamlPath = "./MicroServiceInventorySystem.yml";
+      let lastYamlText = "";
+      let refreshTimerId = null;
+
+      function escapeHtml(value) {
+        return value
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+      }
+
+      function docsToHtml(rawText) {
+        const safeText = escapeHtml(rawText.trim());
+        const paragraphs = safeText
+          .split(/\n\s*\n/g)
+          .map((block) => block.replace(/\n/g, "<br />"))
+          .map((block) => "<p>" + block + "</p>")
+          .join("");
+        return paragraphs || "<p>No hay documentacion disponible.</p>";
+      }
+
+      function extractRootDocs(yamlText) {
+        const rootDocsRegex =
+          /\ndocs:\n\s+content:\s+\|-\n([\s\S]*?)\n\s+type:\s+text\/markdown\n(?:bundled:|extensions:)/;
+        const match = yamlText.match(rootDocsRegex);
+        if (!match) {
+          return "";
+        }
+
+        return match[1]
+          .split("\n")
+          .map((line) => line.replace(/^\s{4}/, ""))
+          .join("\n")
+          .trim();
+      }
+
+      function renderApiDocs(yamlText) {
+        const docsContainer = document.getElementById("docs-api-content");
+        const docsText = extractRootDocs(yamlText);
+
+        if (!docsText) {
+          docsContainer.innerHTML = document.getElementById(
+            "docs-parser-fallback",
+          ).innerHTML;
+          return;
+        }
+
+        docsContainer.innerHTML = docsToHtml(docsText);
+      }
+
+      function setActiveView(viewName) {
+        document.querySelectorAll(".nav-btn").forEach((button) => {
+          button.classList.toggle(
+            "is-active",
+            button.dataset.view === viewName,
+          );
         });
+
+        document.querySelectorAll(".view-panel").forEach((panel) => {
+          panel.classList.toggle("is-active", panel.dataset.panel === viewName);
+        });
+      }
+
+      function bindNavbar() {
+        const navButtons = document.querySelectorAll(".nav-btn");
+        navButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            setActiveView(button.dataset.view);
+          });
+        });
+      }
+
+      function removeSidebarNoise(sidebar) {
+        const rootTitle = Array.from(sidebar.querySelectorAll("h1")).find(
+          (el) =>
+            (el.textContent || "").trim().toLowerCase() ===
+            "micro service inventory system",
+        );
+        if (rootTitle) {
+          rootTitle.remove();
+        }
+
+        sidebar
+          .querySelectorAll(
+            'a[href*="opencollection"], a[href*="open-collection"], [class*="watermark"], [class*="logo"], [data-testid*="logo"]',
+          )
+          .forEach((el) => el.remove());
+      }
+
+      function cleanSidebarBranding() {
+        const sidebar = document.querySelector(".playground-sidebar");
+        if (!sidebar) {
+          return;
+        }
+
+        removeSidebarNoise(sidebar);
+      }
+
+      function setupSidebarCleanupObserver() {
+        const sidebar = document.querySelector(".playground-sidebar");
+        if (!sidebar || sidebar.dataset.cleanupObserverBound === "true") {
+          return;
+        }
+
+        sidebar.dataset.cleanupObserverBound = "true";
+        removeSidebarNoise(sidebar);
+
+        const observer = new MutationObserver(() => {
+          removeSidebarNoise(sidebar);
+        });
+
+        observer.observe(sidebar, { childList: true, subtree: true });
+      }
+
+      function setupSidebarAccordion() {
+        const sidebar = document.querySelector(".playground-sidebar");
+        if (!sidebar || sidebar.dataset.accordionBound === "true") {
+          return;
+        }
+
+        sidebar.dataset.accordionBound = "true";
+        sidebar.addEventListener("click", (event) => {
+          const toggle = event.target.closest("[aria-expanded]");
+          if (!toggle) {
+            return;
+          }
+
+          window.setTimeout(() => {
+            if (toggle.getAttribute("aria-expanded") !== "true") {
+              return;
+            }
+
+            const expandedItems = sidebar.querySelectorAll(
+              '[aria-expanded="true"]',
+            );
+            expandedItems.forEach((item) => {
+              if (item === toggle) {
+                return;
+              }
+
+              const related = item.contains(toggle) || toggle.contains(item);
+              if (!related) {
+                item.click();
+              }
+            });
+          }, 0);
+        });
+      }
+
+      function syncLayoutHeights() {
+        const navbar = document.querySelector(".top-navbar");
+        const footer = document.querySelector(".page-footer");
+        if (!navbar || !footer) {
+          return;
+        }
+
+        document.documentElement.style.setProperty(
+          "--nav-height",
+          `${navbar.offsetHeight}px`,
+        );
+        document.documentElement.style.setProperty(
+          "--footer-height",
+          `${footer.offsetHeight}px`,
+        );
+      }
+
+      function renderCollection(yamlText) {
+        const container = document.getElementById("opencollection-container");
+        container.innerHTML = "";
+
+        new window.OpenCollection({
+          target: container,
+          opencollection: yamlText,
+          theme: "light",
+        });
+
+        renderApiDocs(yamlText);
+        cleanSidebarBranding();
+        setupSidebarAccordion();
+        setupSidebarCleanupObserver();
+      }
+
+      async function loadCollectionFromYaml() {
+        const container = document.getElementById("opencollection-container");
+
+        try {
+          const response = await fetch(`${yamlPath}?v=${Date.now()}`, {
+            cache: "no-store",
+          });
+          if (!response.ok) {
+            throw new Error("No se pudo leer MicroServiceInventorySystem.yml");
+          }
+
+          const yamlText = await response.text();
+          if (yamlText !== lastYamlText) {
+            lastYamlText = yamlText;
+            renderCollection(yamlText);
+          }
+        } catch (error) {
+          container.innerHTML =
+            '<div class="load-error">Error cargando la coleccion: ' +
+            error.message +
+            "</div>";
+        }
+      }
+
+      async function startAutoRefresh() {
+        await loadCollectionFromYaml();
+        if (refreshTimerId) {
+          clearInterval(refreshTimerId);
+        }
+
+        refreshTimerId = setInterval(loadCollectionFromYaml, 30000);
+      }
+
+      bindNavbar();
+      setActiveView("api");
+      syncLayoutHeights();
+      window.addEventListener("resize", syncLayoutHeights);
+      startAutoRefresh();
     </script>
-</body>
+  </body>
 </html>

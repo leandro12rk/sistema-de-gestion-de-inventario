@@ -5,3 +5,13 @@ info:
 
 request:
   auth: inherit
+
+docs:
+  content: |-
+    Gestiona catalogo de productos, categorias y proveedores.
+
+    Modulos
+    CategoryModule: CRUD de categorias.
+    ProductModule: CRUD de productos y dashboard.
+    SupplierModule: CRUD de proveedores.
+  type: text/markdown

@@ -1,0 +1,1027 @@
+opencollection: 1.0.0
+info:
+  name: Micro Service Inventory System
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ''
+      port: ''
+      auth:
+        username: ''
+        password: ''
+      bypassProxy: ''
+items:
+  - info:
+      name: Inventory Service
+      type: folder
+      seq: 1
+    request:
+      auth: inherit
+    docs:
+      content: |-
+        Gestiona existencias, movimientos de inventario y recepciones de mercancia.
+
+        Modulos
+        StockMovementsModule: altas, actualizaciones, consulta y eliminacion de movimientos.
+        GoodReceiptsModule: registro de recepcion de productos.
+        InventoryModule: consulta y administracion general del inventario.
+      type: text/markdown
+    items:
+      - info:
+          name: StockMovementsModule
+          type: folder
+          seq: 1
+        request:
+          auth: inherit
+        docs:
+          content: |-
+            StockMovementsModule
+            APIs de movimientos de stock por producto.
+
+            GET Test Get List: consulta listado de movimientos.
+            GET Test Get by ID: obtiene detalle de un movimiento.
+            POST Test Post: crea un movimiento de inventario.
+            PUT Test Put: actualiza datos del movimiento.
+            DELETE Test Delete: elimina un movimiento.
+          type: text/markdown
+        items:
+          - info:
+              name: Test Delete
+              type: http
+              seq: 4
+            http:
+              method: DELETE
+              url: '{{URL}}102'
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Get by ID copy
+              type: http
+              seq: 6
+            http:
+              method: GET
+              url: http://localhost:9090/supplier/1/name
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Get by ID
+              type: http
+              seq: 1
+            http:
+              method: GET
+              url: http://localhost:9092/purchase-orders
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Get List
+              type: http
+              seq: 5
+            http:
+              method: GET
+              url: http://localhost:9092/purchase-order-details/2
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Post
+              type: http
+              seq: 3
+            http:
+              method: POST
+              url: '{{URL}}'
+              body:
+                type: json
+                data: |-
+                  {
+                    "name": "SSD Samsung 980 Pro - v5 testing ",
+                    "description": "Especificación técnica modelo 2026 serie 5",
+                    "price": 478.67,
+                    "category_id": {
+                      "id": 1
+                    },
+                    "supplier": {
+                      "id": 1
+                    },
+                    "sku":"DSD-322"
+                  }
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Put
+              type: http
+              seq: 2
+            http:
+              method: PUT
+              url: '{{URL}}51'
+              body:
+                type: json
+                data: |-
+                  {
+                    "name": "SSD Samsung 980 Pro - v5",
+                    "description": "Especificación técnica modelo 2026 serie 5",
+                    "price": 478.67,
+                    "category_id":{
+                      "id":1
+                    }
+                  }
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+      - info:
+          name: GoodReceiptsModule
+          type: folder
+          seq: 1
+        request:
+          auth: inherit
+        docs:
+          content: |-
+            GoodReceiptsModule
+            Administra entradas de mercancia al inventario.
+
+            GET Get ALl Product Filter: consulta productos/entradas filtradas.
+            POST Test Post: registra una nueva recepcion.
+            PUT Test Put: actualiza una recepcion existente.
+            DELETE Test Delete: elimina registro de recepcion.
+          type: text/markdown
+        items:
+          - info:
+              name: Get ALl Product Filter
+              type: http
+              seq: 2
+            http:
+              method: GET
+              url: '{{URL}}/inventory'
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Delete
+              type: http
+              seq: 4
+            http:
+              method: DELETE
+              url: http://localhost:9090/products/1135
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Get List
+              type: http
+              seq: 5
+            http:
+              method: GET
+              url: '{{URL}}/products/dashboard'
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Post
+              type: http
+              seq: 2
+            http:
+              method: POST
+              url: http://localhost:9090/products
+              body:
+                type: json
+                data: |-
+                  {
+                    "name": "SSD Samsung 980 Pro - v5 testing ",
+                    "description": "Especificación técnica modelo 2026 serie 5",
+                    "price": 478.67,
+                    "category_id": {
+                      "id": 1
+                    },
+                    "supplier": {
+                      "id": 1
+                    },
+                    "sku":"DSD-322"
+                  }
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Put
+              type: http
+              seq: 2
+            http:
+              method: PUT
+              url: http://localhost:9090/products/135
+              body:
+                type: json
+                data: |-
+                  {
+                    "name": "SSD Samsung 980 Pro - v5 testing ",
+                    "description": "Especificación técnica modelo 2026 serie 5",
+                    "price": 478.67,
+                    "category_id": {
+                      "id": 1
+                    },
+                    "supplier": {
+                      "id": 1
+                    },
+                     "status": true,
+                    "sku":"DSD-322KK"
+                  }
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+      - info:
+          name: InventoryModule
+          type: folder
+          seq: 1
+        request:
+          auth: inherit
+        docs:
+          content: |-
+            Consultas y mantenimiento del inventario global.
+
+            GET Test Get by ID: consulta estado de inventario.
+            GET Test Get List: lista inventario por categoria/modulo.
+            POST Test Post: crea registro de inventario.
+            PUT Test Put: actualiza registro de inventario.
+            DELETE Test Delete: elimina registro de inventario.
+          type: text/markdown
+        items:
+          - info:
+              name: Test Delete
+              type: http
+              seq: 4
+            http:
+              method: DELETE
+              url: '{{URL}}102'
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Get by ID
+              type: http
+              seq: 1
+            http:
+              method: GET
+              url: '{{URL}}/inventory'
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Get List
+              type: http
+              seq: 5
+            http:
+              method: GET
+              url: http://localhost:9000/api/v01/products/category
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Post
+              type: http
+              seq: 3
+            http:
+              method: POST
+              url: http://localhost:9090/category
+              body:
+                type: json
+                data: |-
+                  {
+                    "name": "Laptop Gamer",
+                    "description": "Equipos portátiles para oficina y gaming",
+                    "status": true
+                  }
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Put
+              type: http
+              seq: 2
+            http:
+              method: PUT
+              url: http://localhost:9090/category/11
+              body:
+                type: json
+                data: |-
+                  {
+                    "name": "Laptop Gamer",
+                    "description": "Equipos portátiles para oficina y gaming",
+                    "status": false
+                  }
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+  - info:
+      name: Product Service
+      type: folder
+      seq: 1
+    request:
+      auth: inherit
+    docs:
+      content: |-
+        Gestiona catalogo de productos, categorias y proveedores.
+
+        Modulos
+        CategoryModule: CRUD de categorias.
+        ProductModule: CRUD de productos y dashboard.
+        SupplierModule: CRUD de proveedores.
+      type: text/markdown
+    items:
+      - info:
+          name: CategoryModule
+          type: folder
+          seq: 1
+        request:
+          auth: inherit
+        docs:
+          content: |-
+            ### CRUD completo de categorias de producto.
+
+            GET Get All Category Information: lista categorias.
+            GET Get Category By Id: detalle de categoria por id.
+            POST Create a New Category: crea categoria.
+            PUT Update Category By Id: actualiza categoria.
+            DELETE Delete Category By Id: elimina categoria.
+          type: text/markdown
+        items:
+          - info:
+              name: Create a New Category
+              type: http
+              seq: 3
+            http:
+              method: POST
+              url: '{{URL}}/products/category'
+              body:
+                type: json
+                data: |-
+                  {
+                    "name": "Laptop Gamessr",
+                    "description": "Equipos portátiles para oficina y gaming tse",
+                    "status": true
+                  }
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Delete Category By Id
+              type: http
+              seq: 5
+            http:
+              method: DELETE
+              url: '{{URL}}/products/category/13'
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Get All Category Information
+              type: http
+              seq: 1
+            http:
+              method: GET
+              url: '{{URL}}/products/category'
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Get Category By Id
+              type: http
+              seq: 2
+            http:
+              method: GET
+              url: '{{URL}}/products/category/11'
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Update Category By Id
+              type: http
+              seq: 4
+            http:
+              method: PUT
+              url: '{{URL}}/products/category/11'
+              body:
+                type: json
+                data: |-
+                  {
+                    "name": "Laptop Gamer",
+                    "description": "Equipos portátiles para oficina y gaming",
+                    "status": false
+                  }
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+      - info:
+          name: ProductModule
+          type: folder
+          seq: 1
+        request:
+          auth: inherit
+        docs:
+          content: |
+            ### CRUD Completo de los productos
+            ```json
+          type: text/markdown
+        items:
+          - info:
+              name: Create a New Product
+              type: http
+              seq: 4
+            http:
+              method: POST
+              url: '{{URL}}/products'
+              body:
+                type: json
+                data: |-
+                  {
+                    "name": "SSD Samsung 980 Pro - v5 testing ",
+                    "description": "Especificación técnica modelo 2026 serie 5",
+                    "price": 478.67,
+                    "category_id": {
+                      "id": 1
+                    },
+                    "supplier": {
+                      "id": 1
+                    },
+                    "sku":"DSD-322"
+                  }
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Delete Product By Id
+              type: http
+              seq: 6
+            http:
+              method: DELETE
+              url: '{{URL}}/products/1135'
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Filter Product variables
+              type: http
+              seq: 2
+            http:
+              method: GET
+              url: '{{URL}}/products?supplierName=Cisco Systems PA'
+              params:
+                - name: supplierName
+                  value: Cisco Systems PA
+                  type: query
+                - name: status
+                  value: 'true'
+                  type: query
+                  disabled: true
+                - name: categoryName
+                  value: Laptops
+                  type: query
+                  disabled: true
+                - name: sku
+                  value: LAP-HP-ENVY13
+                  type: query
+                  disabled: true
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Get All Product Data
+              type: http
+              seq: 1
+            http:
+              method: GET
+              url: '{{URL}}/products'
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Get Dashboard Data
+              type: http
+              seq: 3
+            http:
+              method: GET
+              url: '{{URL}}/products/dashboard'
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Update New Product
+              type: http
+              seq: 5
+            http:
+              method: PUT
+              url: '{{URL}}/products/2'
+              body:
+                type: json
+                data: |-
+                  {
+                    "name": "Dell XPS 13 9315",
+                    "description": "Intel Core i7, 16GB RAM, 512GB SSD",
+                    "price": 1250.00,
+                    "category_id": {
+                      "id": 1
+                    },
+                    "supplier": {
+                      "id": 3
+                    },
+                    "status": false,
+                    "sku": "LAP-DELL-XPS13"
+                  }
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+      - info:
+          name: SupplierModule
+          type: folder
+          seq: 1
+        request:
+          auth: inherit
+        docs:
+          content: |-
+            ### CRUD de proveedores relacionados a productos.
+
+
+            ```json
+            GET Get All Supplier Data: lista proveedores.
+            GET Get Supplier By Id: detalle de proveedor.
+            GET Get Supplier Name By Id: consulta nombre de proveedor.
+            POST Create a New Supplier: crea proveedor.
+            PUT Update Supplier Data By Id: actualiza proveedor.
+            DELETE Delete Supplier By Id: elimina proveedor.
+            ```
+          type: text/markdown
+        items:
+          - info:
+              name: Create a New Supplier
+              type: http
+              seq: 4
+            http:
+              method: POST
+              url: '{{URL}}/products/supplier'
+              body:
+                type: json
+                data: |-
+                  {
+                    "companyName": "HP Inc Panamá",
+                    "contactName": "Elena Gómez",
+                    "email": "contacto@hp.pa",
+                    "phone": "+507 260-1122",
+                    "address": "Torre de las Américas",
+                    "status": true,
+                    "country": "Panamá",
+                    "city": "Panamá",
+                    "createdAt": "2026-04-15T01:34:01.617014",
+                    "updateAt": null
+                  }
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Delete Supplier By Id
+              type: http
+              seq: 6
+            http:
+              method: DELETE
+              url: '{{URL}}/products/supplier/11'
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Get All Supplier Data
+              type: http
+              seq: 1
+            http:
+              method: GET
+              url: '{{URL}}/products/supplier'
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Get Supplier By Id
+              type: http
+              seq: 2
+            http:
+              method: GET
+              url: '{{URL}}/products/supplier/11'
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Get Supplier Name By Id
+              type: http
+              seq: 3
+            http:
+              method: GET
+              url: '{{URL}}/products/supplier/8/name'
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Update Supplier Data By Id
+              type: http
+              seq: 5
+            http:
+              method: PUT
+              url: '{{URL}}/products/supplier/11'
+              body:
+                type: json
+                data: |-
+                  {
+                    "id": 4,
+                    "companyName": "HP Inc Panamá",
+                    "contactName": "Elena Gómez",
+                    "email": "contacto@hp.pa",
+                    "phone": "+507 260-1122",
+                    "address": "Torre de las Américas",
+                    "status": false,
+                    "country": "Panamá",
+                    "city": "Panamá",
+                    "createdAt": "2026-04-15T01:34:01.617014",
+                    "updateAt": null
+                  }
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+  - info:
+      name: Purchase Service
+      type: folder
+      seq: 1
+    request:
+      auth: inherit
+    docs:
+      content: |-
+        Purchase Service
+        Gestiona ordenes de compra y sus detalles.
+
+        Modulos
+        PurchaseOrderDetailsModule: detalle de productos en ordenes.
+        PurchaseOrdersModule: cabecera y estado de ordenes de compra.
+      type: text/markdown
+    items:
+      - info:
+          name: PurchaseOrderDetailsModule
+          type: folder
+          seq: 1
+        request:
+          auth: inherit
+        docs:
+          content: |-
+            PurchaseOrderDetailsModule
+            APIs de detalle de ordenes de compra.
+
+            GET Get ALl Product Filter: consulta detalles por filtros.
+            GET Test Get List: lista detalles de ordenes.
+            POST Test Post: crea detalle de orden.
+            PUT Test Put: actualiza detalle de orden.
+            DELETE Test Delete: elimina detalle de orden.
+          type: text/markdown
+        items:
+          - info:
+              name: Get ALl Product Filter
+              type: http
+              seq: 2
+            http:
+              method: GET
+              url: '{{URL}}/purchase/purchase-orders'
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Delete
+              type: http
+              seq: 4
+            http:
+              method: DELETE
+              url: http://localhost:9090/products/1135
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Get List
+              type: http
+              seq: 5
+            http:
+              method: GET
+              url: '{{URL}}/products/dashboard'
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Post
+              type: http
+              seq: 2
+            http:
+              method: POST
+              url: http://localhost:9090/products
+              body:
+                type: json
+                data: |-
+                  {
+                    "name": "SSD Samsung 980 Pro - v5 testing ",
+                    "description": "Especificación técnica modelo 2026 serie 5",
+                    "price": 478.67,
+                    "category_id": {
+                      "id": 1
+                    },
+                    "supplier": {
+                      "id": 1
+                    },
+                    "sku":"DSD-322"
+                  }
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Put
+              type: http
+              seq: 2
+            http:
+              method: PUT
+              url: http://localhost:9090/products/135
+              body:
+                type: json
+                data: |-
+                  {
+                    "name": "SSD Samsung 980 Pro - v5 testing ",
+                    "description": "Especificación técnica modelo 2026 serie 5",
+                    "price": 478.67,
+                    "category_id": {
+                      "id": 1
+                    },
+                    "supplier": {
+                      "id": 1
+                    },
+                     "status": true,
+                    "sku":"DSD-322KK"
+                  }
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+      - info:
+          name: PurchaseOrdersModule
+          type: folder
+          seq: 1
+        request:
+          auth: inherit
+        docs:
+          content: |-
+            PurchaseOrdersModule
+            APIs para administrar ordenes de compra.
+
+            GET Test Get List: lista ordenes.
+            GET Test Get by ID: detalle de una orden.
+            POST Test Post: crea orden de compra.
+            PUT Test Put: actualiza orden.
+            DELETE Test Delete: elimina orden.
+          type: text/markdown
+        items:
+          - info:
+              name: Test Delete
+              type: http
+              seq: 4
+            http:
+              method: DELETE
+              url: '{{URL}}102'
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Get by ID
+              type: http
+              seq: 1
+            http:
+              method: GET
+              url: http://localhost:9090/category/11
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Get List
+              type: http
+              seq: 5
+            http:
+              method: GET
+              url: http://localhost:9000/api/v01/products/category
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Post
+              type: http
+              seq: 3
+            http:
+              method: POST
+              url: http://localhost:9090/category
+              body:
+                type: json
+                data: |-
+                  {
+                    "name": "Laptop Gamer",
+                    "description": "Equipos portátiles para oficina y gaming",
+                    "status": true
+                  }
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+          - info:
+              name: Test Put
+              type: http
+              seq: 2
+            http:
+              method: PUT
+              url: http://localhost:9090/category/11
+              body:
+                type: json
+                data: |-
+                  {
+                    "name": "Laptop Gamer",
+                    "description": "Equipos portátiles para oficina y gaming",
+                    "status": false
+                  }
+              auth: inherit
+            settings:
+              encodeUrl: true
+              timeout: 0
+              followRedirects: true
+              maxRedirects: 5
+docs:
+  content: |-
+    📝 Documentación del Sistema de Gestión de Inventario
+    Bienvenido a la colección de APIs del Sistema de Gestión de Inventario. Este proyecto utiliza una arquitectura de microservicios para gestionar productos, stock y órdenes de compra.
+
+    🚀 Arquitectura del Sistema
+    El sistema está dividido en tres servicios principales que se comunican a través de un API Gateway:
+
+    Product Service (Puerto 9090): Gestión del catálogo de productos y categorías.
+
+    Inventory Service (Puerto 9091): Control de existencias y almacenes.
+
+    Purchase Service (Puerto 9092): Gestión de órdenes de compra y proveedores.
+
+    API Gateway (Puerto 9000): Punto de entrada único (Ruta base: /api/v01).
+
+    🛠️ Configuración Local
+    Para ejecutar estas peticiones, asegúrate de tener levantado el entorno con Docker:
+
+    Bases de Datos: PostgreSQL corriendo en los puertos 5432, 5433 y 5434.
+
+    Servicios: Todos los microservicios deben estar registrados en Eureka (si aplica) o activos.
+
+    🔐 Variables de Entorno
+    Esta colección utiliza un entorno (environment) llamado probablemente "Local". Asegúrate de que tenga las siguientes variables:
+
+    baseUrl: http://localhost:9000/api/v01
+
+    productServiceUrl: http://localhost:9090
+
+    📌 Mejores Prácticas al Probar
+    Filtros: Para el Product Service, puedes filtrar por proveedor usando el parámetro ?supplierName=.
+
+    Validación: Todas las peticiones POST y PUT requieren un cuerpo en formato JSON. Verifica que no falte el campo name para evitar errores 400.
+
+    Orden de ejecución: Se recomienda crear primero un Producto antes de intentar actualizar su Inventario.
+
+    📞 Contacto y Soporte
+    Desarrollador: Leandro
+
+    Repositorio: GitHub - SistemaDeGestionDeInventario
+  type: text/markdown
+bundled: true
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git
+    presets:
+      requestType: http
+      requestUrl: http://localhost:9000/api/v01
+    exportedAt: '2026-04-17T19:09:12.999Z'
+    exportedUsing: Bruno

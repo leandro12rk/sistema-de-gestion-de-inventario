@@ -5,3 +5,15 @@ info:
 
 request:
   auth: inherit
+
+docs:
+  content: |-
+    PurchaseOrderDetailsModule
+    APIs de detalle de ordenes de compra.
+
+    GET Get ALl Product Filter: consulta detalles por filtros.
+    GET Test Get List: lista detalles de ordenes.
+    POST Test Post: crea detalle de orden.
+    PUT Test Put: actualiza detalle de orden.
+    DELETE Test Delete: elimina detalle de orden.
+  type: text/markdown

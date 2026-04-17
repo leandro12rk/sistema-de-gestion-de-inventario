@@ -1,7 +1,18 @@
 info:
   name: CategoryModule
   type: folder
-  seq: 2
+  seq: 1
 
 request:
   auth: inherit
+
+docs:
+  content: |-
+    ### CRUD completo de categorias de producto.
+
+    GET Get All Category Information: lista categorias.
+    GET Get Category By Id: detalle de categoria por id.
+    POST Create a New Category: crea categoria.
+    PUT Update Category By Id: actualiza categoria.
+    DELETE Delete Category By Id: elimina categoria.
+  type: text/markdown

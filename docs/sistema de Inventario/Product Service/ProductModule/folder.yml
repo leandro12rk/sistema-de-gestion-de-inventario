@@ -8,20 +8,6 @@ request:
 
 docs:
   content: |
-    ### Ejemplo de petición (Request Body)
-
+    ### CRUD Completo de los productos
     ```json
-    {
-      "name": "Dell XPS 13 9315",
-      "description": "Intel Core i7, 16GB RAM, 512GB SSD",
-      "price": 1250.00,
-      "category_id": {
-        "id": 1
-      },
-      "supplier": {
-        "id": 3
-      },
-      "status": false,
-      "sku": "LAP-DEL-XPS13"
-    }
   type: text/markdown

@@ -1,7 +1,18 @@
 info:
   name: InventoryModule
   type: folder
-  seq: 2
+  seq: 1
 
 request:
   auth: inherit
+
+docs:
+  content: |-
+    Consultas y mantenimiento del inventario global.
+
+    GET Test Get by ID: consulta estado de inventario.
+    GET Test Get List: lista inventario por categoria/modulo.
+    POST Test Post: crea registro de inventario.
+    PUT Test Put: actualiza registro de inventario.
+    DELETE Test Delete: elimina registro de inventario.
+  type: text/markdown
