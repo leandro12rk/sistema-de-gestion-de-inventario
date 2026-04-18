@@ -12,7 +12,8 @@ CREATE TABLE purchase_orders
     supplier_id  INTEGER NOT NULL,          -- Referencia al servicio de proveedores
     order_date   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     status       VARCHAR(20) CHECK (status IN ('PENDING', 'APPROVED', 'RECEIVED', 'CANCELLED')),
-    total_amount NUMERIC(12, 2) DEFAULT 0.00
+    total_amount NUMERIC(12, 2) DEFAULT 0.00,
+    updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE purchase_order_details
@@ -22,7 +23,8 @@ CREATE TABLE purchase_order_details
     product_id        INTEGER NOT NULL, -- Referencia al servicio de productos
     quantity_ordered  INTEGER NOT NULL CHECK (quantity_ordered > 0),
     unit_price        NUMERIC(10, 2) NOT NULL,
-    subtotal          NUMERIC(12, 2) GENERATED ALWAYS AS (quantity_ordered * unit_price) STORED
+    subtotal          NUMERIC(12, 2) GENERATED ALWAYS AS (quantity_ordered * unit_price),
+    updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Creación de índices para optimizar las consultas de historial que mencionaste
